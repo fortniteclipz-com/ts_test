@@ -1,5 +1,13 @@
-import ts_aws
+import ts_aws.dynamodb.stream
 
 
-stream = ts_aws.dynamodb.stream.get_stream(285219394)
-print("dynamodb.stream.get_stream | stream", stream.__dict__)
+stream_segments = ts_aws.dynamodb.stream.get_stream_segments(285219394)
+
+
+# print("\n\n")
+# for ss in stream_segments:
+#     print(ss.__dict__)
+#     print("\n")
+
+
+print("len(ss)", len(stream_segments))
