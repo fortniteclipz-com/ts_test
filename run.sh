@@ -34,7 +34,7 @@ function test() {
 
 fn="$1"
 function run() {
-    echo "run $fn $1 $2"
+    echo "run | $fn | $1 | $2"
     if [ $fn == "bootstrap" ]; then
         bootstrap $1 $2
     fi
