@@ -17,7 +17,6 @@ function bootstrap() {
     pip3 install --process-dependency-links -e ./ts_http
     pip3 install --process-dependency-links -e ./ts_logger
     pip3 install --process-dependency-links -e ./ts_media
-    pip3 install --process-dependency-links -e ./ts_twitch
 
     echo "done bootstrappin $2\n"
 }

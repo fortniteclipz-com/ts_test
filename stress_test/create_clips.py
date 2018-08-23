@@ -10,11 +10,11 @@ for f in sorted(os.listdir("./stress_test/twitch_clips")):
 
     for clip in clips:
         print("clip", clip)
-        r = requests.post("https://gmsooynru2.execute-api.us-west-1.amazonaws.com/dev/clip",
+        r = requests.post("https://wpsgbxj1f7.execute-api.us-west-1.amazonaws.com/dev/clip",
             data=json.dumps(clip),
             headers={
                 'Content-Type': "application/json",
-                'x-api-key': "zfw7huc1V838TDXYscRoU4oYdaRyNk5Ya13DGzQl",
+                'x-api-key': "Cw9LdgfLts9dBclr5m5lM6dDd5Hgmo0h1waLXEtH",
             }
         )
         clip_id = r.json()
