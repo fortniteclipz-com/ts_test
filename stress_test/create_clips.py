@@ -5,23 +5,26 @@ import os
 import requests
 
 total_count = 0
-for f in sorted(os.listdir("./stress_test/twitch_clips")):
+for i, f in enumerate(sorted(os.listdir("./stress_test/twitch_clips"))):
+    if i < 1:
+        continue
     clips = ts_file.get_json(f"./stress_test/twitch_clips/{f}")
 
-    for clip in clips:
+    for i, clip in enumerate(clips):
+
         print("clip", clip)
-        r = requests.post("https://wpsgbxj1f7.execute-api.us-west-1.amazonaws.com/dev/clip",
+        r = requests.post("https://f5reyk0okj.execute-api.us-west-1.amazonaws.com/dev/clip",
             data=json.dumps(clip),
             headers={
                 'Content-Type': "application/json",
-                'x-api-key': "Cw9LdgfLts9dBclr5m5lM6dDd5Hgmo0h1waLXEtH",
+                'x-api-key': "WrWSNRXYQP1zlK5vWFcmz6a4uF2za6876YHBSgy5",
             }
         )
         clip_id = r.json()
-        print("clip_id", clip_id)
         total_count += 1
-        print("total_count", total_count)
+        print("clip_id", clip_id, total_count)
+        # break
     break
 
-print("total_count", total_count)
+print("total total_count", total_count)
 
