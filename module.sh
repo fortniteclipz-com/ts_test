@@ -36,19 +36,20 @@ function run() {
     echo "run | $fn | $1 | $2"
     if [ $fn == "bootstrap" ]; then
         bootstrap $1 $2
-    fi
-
-    if [ $fn == "test" ]; then
+    elif [ $fn == "test" ]; then
         test $1 $2
     fi
+    exit 1
 }
 
 # ---------------------------
 
 if  ( [ $1 != "bootstrap" ] && [ $1 != "test" ] ) ||
-    ( [ $1 == "test" ] && [ -z $2 ] )
+    ( [ $1 == "test" ] && [ -z $2 ] ) ||
+    ( [ $1 != "bootstrap" ] && [ $2 == "ts_test" ] )
 then
     echo "invalid command"
+    exit 0
 fi
 
 if [ -z $2 ]; then
@@ -65,9 +66,12 @@ else
     module="$(cut -d'/' -f2 <<<"$2")"
     echo $repo
     echo $module
-    dir="$twitch_stitch_root/ts_$repo/modules/$module"
-    if [ -d "$dir" ]; then
-        run $dir $module
+    dir_module="$twitch_stitch_root/ts_$repo/modules/$module"
+    dir_repo="$twitch_stitch_root/$repo"
+    if [ -d "$dir_module" ]; then
+        run $dir_module $module
+    elif [ -d "$dir_repo" ]; then
+        run $dir_repo $repo
     else
         echo "no valid dir for: $repo $module"
     fi
