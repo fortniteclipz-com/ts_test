@@ -1,4 +1,4 @@
-twitch_stitch_root="/Users/Sachin/code/businesses/twitch_stitch"
+twitch_stitch_root="$(dirname $PWD)"
 
 function bootstrap() {
     echo "\nbootstrappin $2"
