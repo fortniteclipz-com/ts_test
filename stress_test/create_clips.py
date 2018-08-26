@@ -15,17 +15,19 @@ count = 0
 count_total = len(clips)
 for clip in clips:
     print("---------------------------------")
+    del clip['time_in']
     print(clip)
-    r = requests.post("https://5aycqamkj3.execute-api.us-west-1.amazonaws.com/dev/clip",
+    r = requests.post("https://kum99llac4.execute-api.us-west-1.amazonaws.com/dev/clip",
         data=json.dumps(clip),
         headers={
             'Content-Type': "application/json",
-            'x-api-key': "148fWahfDr8P2wd1nWuLf1SrbOsfZdZq3QEFLayp",
+            'x-api-key': "tbGNMmxCg95rPHZOn66664ffSq0CLrnbaNVytGDI",
         }
     )
-    clip_id = r.json()
+    body = r.json()
     count += 1
-    print(clip_id, f"{count}/{count_total}")
+    print(body['clip']['clip_id'], f"{count}/{count_total}")
+    break
 
 print("total count", count)
 

@@ -20,7 +20,7 @@ for s in segments:
 
     # get stream_segment from dynamodb
     ss = ts_aws.dynamodb.stream.get_stream_segment(stream_id, segment)
-    logger.info("stream_segment", stream_segment=ss.__dict__)
+    logger.info("stream_segment", stream_segment=ss)
     if ss:
         logger.info("downloading and processing raw segment on mac")
         media_filename = f"{dir_base}/{ss.padded}.ts"
