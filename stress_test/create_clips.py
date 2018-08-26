@@ -15,13 +15,12 @@ count = 0
 count_total = len(clips)
 for clip in clips:
     print("---------------------------------")
-    del clip['time_in']
     print(clip)
-    r = requests.post("https://kum99llac4.execute-api.us-west-1.amazonaws.com/dev/clip",
+    r = requests.post("https://7fr5hm1jl3.execute-api.us-west-1.amazonaws.com/dev/clip",
         data=json.dumps(clip),
         headers={
             'Content-Type': "application/json",
-            'x-api-key': "tbGNMmxCg95rPHZOn66664ffSq0CLrnbaNVytGDI",
+            'x-api-key': "nue0J5muSj41s74xV3VB23ypl3BQC1El3oxxDudk",
         }
     )
     body = r.json()
