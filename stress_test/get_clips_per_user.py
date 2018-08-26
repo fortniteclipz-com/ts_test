@@ -52,7 +52,7 @@ for tu in twitch_users:
                 'stream_id': stream_id,
                 'time_in': time_in,
                 'time_out': time_out,
-                'clip_duration': random_duration,
+                'clip_duration': random_duration * 2,
                 'stream_duration': stream_duration,
                 'twitch_user_id': tu_id,
                 'twitch_login': tu_login,
