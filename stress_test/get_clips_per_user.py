@@ -40,7 +40,7 @@ for tu in twitch_users:
 
         for i in range(1, 6):
             random_time = random.randint(0, stream_duration)
-            random_duration = random.randint(1, 6)
+            random_duration = random.randint(1, 10)
             time_in = random_time - random_duration
             time_out = random_time + random_duration
             if time_in < 0:
@@ -62,4 +62,4 @@ for tu in twitch_users:
     ts_file.save_json(user_clips, f"./stress_test/twitch_clips/{tu_id}-{tu_login}.json")
     total_clips += len(user_clips)
 
-print(total_clips)
+print("total_clips", total_clips)

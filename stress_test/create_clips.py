@@ -1,9 +1,12 @@
+stop_count = 1
+
 import ts_file
 
 import json
 import os
 import random
 import requests
+import time
 
 clips = []
 for i, f in enumerate(sorted(os.listdir("./stress_test/twitch_clips"))):
@@ -13,20 +16,26 @@ random.shuffle(clips)
 
 count = 0
 count_total = len(clips)
+print("count_total", count_total)
 for clip in clips:
     print("---------------------------------")
     print(clip)
-    r = requests.post("https://7fr5hm1jl3.execute-api.us-west-1.amazonaws.com/dev/clip",
+    r = requests.post("https://2inrogtf64.execute-api.us-west-1.amazonaws.com/dev/clip",
         data=json.dumps(clip),
         headers={
             'Content-Type': "application/json",
-            'x-api-key': "nue0J5muSj41s74xV3VB23ypl3BQC1El3oxxDudk",
+            'x-api-key': "esCRou33IB6OpbrgTtnWT3VLkJ4QlCyl3JzVW5jE",
         }
     )
     body = r.json()
-    count += 1
-    print(body['clip']['clip_id'], f"{count}/{count_total}")
-    break
+    clip_id = body['clip']['clip_id']
+    print(clip_id, f"{count}/{count_total}")
 
-print("total count", count)
+    count += 1
+    if count >= stop_count:
+        break
+    else:
+        time.sleep(60)
+
+print("final count", count)
 
