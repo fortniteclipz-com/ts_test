@@ -20,11 +20,11 @@ print("count_total", count_total)
 for clip in clips:
     print("---------------------------------")
     print(clip)
-    r = requests.post("https://2inrogtf64.execute-api.us-west-1.amazonaws.com/dev/clip",
+    r = requests.post("https://664t5vfeoe.execute-api.us-west-1.amazonaws.com/dev/clip",
         data=json.dumps(clip),
         headers={
             'Content-Type': "application/json",
-            'x-api-key': "esCRou33IB6OpbrgTtnWT3VLkJ4QlCyl3JzVW5jE",
+            'x-api-key': "e8GDhpfb0j11OWd1wAkEV1qvSZCJSh9d713m5IjL",
         }
     )
     body = r.json()
