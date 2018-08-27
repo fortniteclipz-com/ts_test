@@ -1,4 +1,5 @@
-stop_count = 1
+stop_count = 1000
+wait_time = 15
 
 import ts_file
 
@@ -11,7 +12,6 @@ import time
 clips = []
 for i, f in enumerate(sorted(os.listdir("./stress_test/twitch_clips"))):
     clips +=  ts_file.get_json(f"./stress_test/twitch_clips/{f}")
-
 random.shuffle(clips)
 
 count = 0
@@ -29,13 +29,13 @@ for clip in clips:
     )
     body = r.json()
     clip_id = body['clip']['clip_id']
-    print(clip_id, f"{count}/{count_total}")
 
     count += 1
+    print(clip_id, f"{count}/{count_total}")
     if count >= stop_count:
         break
     else:
-        time.sleep(60)
+        time.sleep(wait_time)
 
 print("final count", count)
 

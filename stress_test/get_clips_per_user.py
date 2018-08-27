@@ -3,6 +3,7 @@ import ts_file
 import re
 import random
 import requests
+import streamlink
 
 twitch_users = ts_file.get_json("./stress_test/twitch_users.json")
 
@@ -37,6 +38,14 @@ for tu in twitch_users:
         stream_duration = get_video_duration(v['duration'])
         stream_id = int(v['id'])
         print("stream_id", stream_id)
+
+        try:
+            twitch_stream_url = f"https://twitch.tv/videos/{stream_id}"
+            twitch_streams = streamlink.streams(twitch_stream_url)
+            twitch_stream = twitch_streams['best']
+        except Exception as e:
+            print("error", str(e))
+            continue
 
         for i in range(1, 6):
             random_time = random.randint(0, stream_duration)
