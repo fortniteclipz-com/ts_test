@@ -1,5 +1,5 @@
 stop_count = 1000
-wait_time = 15
+wait_time = 60
 
 import ts_file
 
@@ -20,11 +20,11 @@ print("count_total", count_total)
 for clip in clips:
     print("---------------------------------")
     print(clip)
-    r = requests.post("https://664t5vfeoe.execute-api.us-west-1.amazonaws.com/dev/clip",
+    r = requests.post("https://7udj2a8g4m.execute-api.us-west-1.amazonaws.com/dev/clip",
         data=json.dumps(clip),
         headers={
             'Content-Type': "application/json",
-            'x-api-key': "e8GDhpfb0j11OWd1wAkEV1qvSZCJSh9d713m5IjL",
+            'x-api-key': "sLQLoC7Uny4fkSm5nlL51iVCbQ0xEu3o91KST840",
         }
     )
     body = r.json()
