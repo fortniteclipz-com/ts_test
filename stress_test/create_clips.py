@@ -1,5 +1,7 @@
+ts_url_id = "vvibe70p80"
+ts_api_key = "hFDZPDmlvI8QVuXS03Ypz8CjNK2troQx8yLZtacp"
 stop_count = 1000
-wait_time = 60
+wait_time = 30
 
 import ts_file
 
@@ -20,11 +22,11 @@ print("count_total", count_total)
 for clip in clips:
     print("---------------------------------")
     print(clip)
-    r = requests.post("https://l0jmspd9ue.execute-api.us-west-1.amazonaws.com/dev/clip",
+    r = requests.post(f"https://{ts_url_id}.execute-api.us-west-1.amazonaws.com/dev/clip",
         data=json.dumps(clip),
         headers={
             'Content-Type': "application/json",
-            'x-api-key': "CZnyGmuV1baK7sLlhhtM6UQlzKNFPSV4IHklZEc8",
+            'x-api-key': ts_api_key,
         }
     )
     body = r.json()
