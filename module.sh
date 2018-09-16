@@ -15,8 +15,8 @@ function bootstrap() {
     pip3 install --process-dependency-links -e ./ts_config
     pip3 install --process-dependency-links -e ./ts_file
     pip3 install --process-dependency-links -e ./ts_http
+    pip3 install --process-dependency-links -e ./ts_libs
     pip3 install --process-dependency-links -e ./ts_logger
-    pip3 install --process-dependency-links -e ./ts_media
     pip3 install --process-dependency-links -e ./ts_model
 
     echo "done bootstrappin $2\n"
