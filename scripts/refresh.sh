@@ -14,7 +14,7 @@ qs=(
 )
 for q in ${qs[@]}; do
     echo "emptying sqs ${q}..."
-    qurl="https://sqs.us-west-1.amazonaws.com/589344262905/${q}"
+    qurl="https://sqs.us-west-2.amazonaws.com/589344262905/${q}"
     aws sqs purge-queue --queue-url "${qurl}"
 done
 

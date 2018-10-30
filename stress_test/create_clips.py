@@ -22,7 +22,7 @@ print("count_total", count_total)
 for clip in clips:
     print("---------------------------------")
     print(clip)
-    r = requests.post(f"https://{ts_url_id}.execute-api.us-west-1.amazonaws.com/dev/clip",
+    r = requests.post(f"https://{ts_url_id}.execute-api.us-west-2.amazonaws.com/dev/clip",
         data=json.dumps(clip),
         headers={
             'Content-Type': "application/json",
