@@ -6,6 +6,7 @@ function bootstrap() {
 
     cd $1
     rm -rf ./venv
+    rm -rf ./__pycache__
     virtualenv ./venv -p /usr/local/bin/python3
     source venv/bin/activate
     pip3 install --process-dependency-links -r requirements.txt
@@ -26,8 +27,8 @@ function bootstrap() {
 
 if [ -z $1 ]; then
     cd $twitch_stitch_root
-    # find . -name "venv" -exec rm -rf '{}' +
-    # find . -name "__pycache__" -exec rm -rf '{}' +
+    find . -path "*/modules/*" -name "venv" -exec rm -rf '{}' +
+    find . -path "*/modules/*" -name "__pycache__" -exec rm -rf '{}' +
     find $(pwd) -type f -path "*/modules/*" -not -path "*.serverless*" -iname "requirements.txt" -print0 | while IFS= read -r -d $'\0' file; do
         module_dir=$(dirname $file)
         bootstrap $module_dir
