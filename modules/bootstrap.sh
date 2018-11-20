@@ -19,7 +19,6 @@ function bootstrap() {
     pip3 install --process-dependency-links -e ./ts_libs
     pip3 install --process-dependency-links -e ./ts_logger
     pip3 install --process-dependency-links -e ./ts_model
-    pip3 install --process-dependency-links -e ./ts_model2
 
     echo "done $module_short"
     echo "\n"
