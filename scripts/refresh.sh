@@ -1,16 +1,17 @@
+twitch_stitch_root="${PWD%/*/*}"
 qs=(
-    "ts-clip"
-    "ts-clip-dead"
-    "ts-montage"
-    "ts-montage-dead"
-    "ts-stream--analyze"
-    "ts-stream--analyze-dead"
-    "ts-stream--initialize"
-    "ts-stream--initialize-dead"
-    "ts-stream-segment--analyze"
-    "ts-stream-segment--analyze-dead"
-    "ts-stream-segment--download"
-    "ts-stream-segment--download-dead"
+    "ts-clip-dead-dev"
+    "ts-clip-dev"
+    "ts-montage-dead-dev"
+    "ts-montage-dev"
+    "ts-stream--analyze-dead-dev"
+    "ts-stream--analyze-dev"
+    "ts-stream--initialize-dead-dev"
+    "ts-stream--initialize-dev"
+    "ts-stream-segment--analyze-dead-dev"
+    "ts-stream-segment--analyze-dev"
+    "ts-stream-segment--download-dead-dev"
+    "ts-stream-segment--download-dev"
 )
 for q in ${qs[@]}; do
     echo "emptying sqs ${q}..."
@@ -18,5 +19,5 @@ for q in ${qs[@]}; do
     aws sqs purge-queue --queue-url "${qurl}"
 done
 
-echo "emptying s3 twitch-stitch-main..."
-aws s3 rm s3://twitch-stitch-main --recursive
+echo "emptying s3 twitch-stitch-media-dev..."
+aws s3 rm s3://twitch-stitch-media-dev --recursive
