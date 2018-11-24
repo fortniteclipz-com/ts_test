@@ -10,5 +10,9 @@ if [ ! -d ./venv ]; then
     pip3 install --process-dependency-links -r requirements.txt
     deactivate
 fi
+
+aws rds reboot-db-instance --db-instance-identifier twitch-stitch-dev
+aws rds wait db-instance-available --db-instance-identifier twitch-stitch-dev
+
 source venv/bin/activate
 alembic downgrade base && alembic upgrade head
