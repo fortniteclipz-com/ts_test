@@ -1,6 +1,6 @@
+export ts_env='dev'
 twitch_stitch_root="${PWD%/*/*}"
 
-# drop and create db
 cd $twitch_stitch_root/ts_infra/database
 if [ ! -d ./venv ]; then
     rm -rf ./venv
