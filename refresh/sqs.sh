@@ -1,4 +1,5 @@
 # purge sqs
+echo "sqs | purging"
 qs=(
     "ts-clip-dead-dev"
     "ts-clip-dev"
@@ -14,7 +15,7 @@ qs=(
     "ts-stream-segment--download-dev"
 )
 for q in ${qs[@]}; do
-    echo "purging sqs ${q}..."
-    qurl="https://sqs.us-west-2.amazonaws.com/589344262905/${q}"
+    echo "sqs | purging | ${q}"
+    qurl="https://sqs.us-east-2.amazonaws.com/589344262905/${q}"
     aws sqs purge-queue --queue-url "${qurl}"
 done
