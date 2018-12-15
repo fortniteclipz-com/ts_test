@@ -4,19 +4,18 @@ import requests
 
 COLUMNS = [
     'twitch_user_id',
-    'twitch_login',
     'twitch_user_name',
-    'twitch_view_count',
-    'twitch_videos_count',
-    'twitch_fortnite_count',
-    'twitch_fortnite_percentage',
+    'twitch_followers',
+    'twitch_videos_percentage_fortnite',
+    'instagram',
+    'email',
+    'twitch_views',
+    'twitch_videos_count_total',
+    'twitch_videos_count_fortnite',
     'latest_stream_id',
     'latest_stream_view_count',
     'latest_stream_duration',
     'latest_stream_date',
-    'instagram',
-    'twitter',
-    'email',
 ]
 
 HEADERS = {
@@ -24,12 +23,12 @@ HEADERS = {
     'Client-ID': "xrept5ig71a868gn7hgte55ky8nbsa",
 }
 
-def get_twitch_videos():
+def get_videos():
     url = "https://api.twitch.tv/helix/videos"
     videos = []
     pagination = None
     while len(videos) < 1000:
-        print("helpers | get_twitch_videos | loop")
+        print("helpers | get_videos | loop")
         params = {
             'game_id': '33214',
             'period': 'day',
@@ -51,27 +50,20 @@ def get_twitch_videos():
         pagination = body['pagination']['cursor']
     return videos
 
-def get_twitch_users(csv_users):
-    url = "https://api.twitch.tv/helix/users"
-    twitch_users = []
-    start = 0
-    while start < len(csv_users):
-        print("helpers | get_twitch_users | loop", start)
-        params = {
-            'id': list(map(lambda u: u['twitch_user_id'], csv_users[start:start+100])),
-        }
-        r = requests.get(
-            url,
-            headers=HEADERS,
-            params=params,
-        )
-        body = r.json()
-        twitch_users += body['data']
-        start += 100
-    return twitch_users
+def get_channel(user):
+    url = f"https://api.twitch.tv/kraken/channels/{user['twitch_user_name']}"
+    params = {}
+    r = requests.get(
+        url,
+        headers=HEADERS,
+        params=params,
+    )
+    body = r.json()
+    channel = body
+    return channel
 
-def get_twitch_user_videos(user):
-    url = f"https://api.twitch.tv/kraken/channels/{user['twitch_login']}/videos"
+def get_channel_videos(user):
+    url = f"https://api.twitch.tv/kraken/channels/{user['twitch_user_name']}/videos"
     params = {
         'broadcast_type': 'archive',
         'limit': '100',
@@ -85,23 +77,24 @@ def get_twitch_user_videos(user):
     videos = body['videos']
     return videos
 
-def get_csv_users():
+def get_users():
     with open('./users.csv', 'a+') as f:
         f.seek(0, 0)
         csv_reader = csv.DictReader(f)
-        csv_users = list(csv_reader)
-    return csv_users
+        users = list(csv_reader)
+    return users
 
-def save_csv_users(csv_users):
-    csv_users.sort(key=lambda u: (
-        -__make_int(u.get('twitch_view_count', 0)),
-        -__make_int(u.get('twitch_fortnite_percentage', 0)),
+def save_users(users):
+    users.sort(key=lambda u: (
+        -__make_int(u.get('twitch_followers', 0)),
+        -__make_int(u.get('twitch_videos_percentage_fortnite', 0)),
+        -__make_int(u.get('twitch_views', 0)),
         -__make_int(u.get('latest_stream_view_count', 0)),
     ))
     with open('./users.csv', 'w') as f:
         csv_writer = csv.DictWriter(f, fieldnames=COLUMNS)
         csv_writer.writeheader()
-        for u in csv_users:
+        for u in users:
             csv_writer.writerow(u)
 
 def __make_int(s):
