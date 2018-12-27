@@ -9,6 +9,7 @@ COLUMNS = [
     'twitch_videos_percentage_fortnite',
     'instagram',
     'email',
+    'twitter',
     'twitch_views',
     'twitch_videos_count_total',
     'twitch_videos_count_fortnite',
