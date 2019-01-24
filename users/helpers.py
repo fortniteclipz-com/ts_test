@@ -17,6 +17,9 @@ COLUMNS = [
     'latest_stream_view_count',
     'latest_stream_duration',
     'latest_stream_date',
+    'contact_instagram',
+    'contact_email',
+    'contact_twitter',
 ]
 
 HEADERS = {
