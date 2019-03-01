@@ -1,10 +1,10 @@
-export ts_env='dev'
+export TS_ENV='dev'
 twitch_stitch_root="${PWD%/*/*}"
 
-echo "rds | resetting | twitch-stitch-$ts_env"
+echo "rds | resetting | twitch-stitch-$TS_ENV"
 cd $twitch_stitch_root/ts_infra/migrations
 if [ ! -d ./venv ]; then
-    echo "rds | bootstrapping | twitch-stitch-$ts_env"
+    echo "rds | bootstrapping | twitch-stitch-$TS_ENV"
     rm -rf ./venv
     rm -rf ./__pycache__
     virtualenv ./venv -p /usr/local/bin/python3
@@ -15,11 +15,11 @@ if [ ! -d ./venv ]; then
     deactivate
 fi
 
-echo "rds | rebooting | twitch-stitch-$ts_env"
+echo "rds | rebooting | twitch-stitch-$TS_ENV"
 cd $twitch_stitch_root/ts_infra/migrations
-aws rds reboot-db-instance --db-instance-identifier "twitch-stitch-$ts_env"
-aws rds wait db-instance-available --db-instance-identifier "twitch-stitch-$ts_env"
+aws rds reboot-db-instance --db-instance-identifier "twitch-stitch-$TS_ENV"
+aws rds wait db-instance-available --db-instance-identifier "twitch-stitch-$TS_ENV"
 
-echo "rds | remigrating | twitch-stitch-$ts_env"
+echo "rds | remigrating | twitch-stitch-$TS_ENV"
 source venv/bin/activate
 alembic downgrade base && alembic upgrade head
