@@ -9,9 +9,9 @@ if [ ! -d ./venv ]; then
     rm -rf ./__pycache__
     virtualenv ./venv -p /usr/local/bin/python3
     source venv/bin/activate
-    pip3 install --process-dependency-links -r requirements.txt
+    pip3 install -r requirements.txt
     cd $twitch_stitch_root/ts_shared
-    pip3 install --process-dependency-links -e ./ts_config
+    pip3 install -e ./ts_config
     deactivate
 fi
 
