@@ -7,18 +7,19 @@ function bootstrap() {
     cd $1
     rm -rf ./venv
     rm -rf ./__pycache__
-    virtualenv ./venv -p /usr/local/bin/python3
+    virtualenv ./venv --python=/usr/local/Cellar/python/3.6.4_4/bin/python3.6
     source venv/bin/activate
-    pip3 install -r requirements.txt
+    pip3 install pip==10.0.1
+    pip3 install --process-dependency-links -r requirements.txt
 
     cd $twitch_stitch_root/ts_shared
-    pip3 install -e ./ts_aws
-    pip3 install -e ./ts_config
-    pip3 install -e ./ts_file
-    pip3 install -e ./ts_http
-    pip3 install -e ./ts_libs
-    pip3 install -e ./ts_logger
-    pip3 install -e ./ts_model
+    pip3 install --process-dependency-links -e ./ts_aws
+    pip3 install --process-dependency-links -e ./ts_config
+    pip3 install --process-dependency-links -e ./ts_file
+    pip3 install --process-dependency-links -e ./ts_http
+    pip3 install --process-dependency-links -e ./ts_libs
+    pip3 install --process-dependency-links -e ./ts_logger
+    pip3 install --process-dependency-links -e ./ts_model
 
     echo "done $module_short"
     echo "\n"
