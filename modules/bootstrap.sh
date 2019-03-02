@@ -7,7 +7,7 @@ function bootstrap() {
     cd $1
     rm -rf ./venv
     rm -rf ./__pycache__
-    virtualenv ./venv --python=/usr/local/Cellar/python/3.6.4_4/bin/python3.6
+    virtualenv ./venv --python=/usr/local/bin/python3
     source venv/bin/activate
     pip3 install pip==10.0.1
     pip3 install --process-dependency-links -r requirements.txt
