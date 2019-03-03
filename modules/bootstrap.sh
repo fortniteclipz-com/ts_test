@@ -28,9 +28,9 @@ function bootstrap() {
 cd $twitch_stitch_root
 if [ -z $1 ]; then
 
-    find . -path "*/modules/*" -name "venv" -maxdepth 4 -exec rm -rf '{}' +
-    find . -path "*/modules/*" -name "__pycache__" -maxdepth 4 -exec rm -rf '{}' +
-    find $(pwd) -type f -path "*/modules/*" -not -path "*.serverless*" -maxdepth 4 -iname "requirements.txt" -print0 | while IFS= read -r -d $'\0' file; do
+    find . -type d -path "*/modules/*" -name "venv" -maxdepth 4 -exec rm -rf '{}' +
+    find . -type d -path "*/modules/*" -name "__pycache__" -maxdepth 4 -exec rm -rf '{}' +
+    find $(pwd) -type f -path "*/modules/*" -not -path "*.serverless*" -iname "requirements.txt" -maxdepth 4 -print0 | while IFS= read -r -d $'\0' file; do
         module_dir=$(dirname $file)
         bootstrap $module_dir
     done
@@ -46,7 +46,7 @@ else
             found=true
             bootstrap $module_dir
         fi
-    done <<< $(find . -path "*/modules/*" -maxdepth 3 -type d)
+    done <<< $(find . -type d -path "*/modules/*" -maxdepth 3)
 
     if [ $found = false ]; then
         echo "error: $repo $module is not a valid module dir [$repo/$module]"
