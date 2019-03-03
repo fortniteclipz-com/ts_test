@@ -1,5 +1,5 @@
 # purge sqs
-echo "sqs | purging"
+echo "sqs | start | twitch-stitch-media-dev"
 qs=(
     "ts-clip-dead-dev"
     "ts-clip-dev"
