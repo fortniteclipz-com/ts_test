@@ -1,5 +1,5 @@
 action=${1:-'enable'}
-echo "event | $action | twitch-stitch-media-dev"
+echo "event | $action | ts-media-dev"
 
 aws events list-rules --name-prefix ts-jobs-dev | jq -c '.Rules[]' | jq -c -r '.Name' | while read name; do
     if [ $action == "disable" ]; then
