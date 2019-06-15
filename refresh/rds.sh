@@ -1,10 +1,10 @@
 export TS_ENV='dev'
-twitch_stitch_root="${PWD%/*/*}"
+echo "rds | start | ts-dev"
 
-echo "rds | start | ts-$TS_ENV"
+twitch_stitch_root="${PWD%/*/*}"
 cd $twitch_stitch_root/ts_infra/migrations
 if [ ! -d ./venv ]; then
-    echo "rds | bootstrapping | ts-$TS_ENV"
+    echo "rds | bootstrapping | ts-dev"
     rm -rf ./venv
     rm -rf ./__pycache__
     /usr/local/Cellar/python/3.6.5_1/bin/python3 -m venv ./venv
@@ -14,10 +14,10 @@ if [ ! -d ./venv ]; then
     deactivate
 fi
 
-echo "rds | rebooting | ts-$TS_ENV"
-aws rds reboot-db-instance --db-instance-identifier "ts-$TS_ENV"
-aws rds wait db-instance-available --db-instance-identifier "ts-$TS_ENV"
+echo "rds | rebooting | ts-dev"
+aws rds reboot-db-instance --db-instance-identifier "ts-dev" --profile sls-fortniteclipz --region us-east-1
+aws rds wait db-instance-available --db-instance-identifier "ts-dev" --profile sls-fortniteclipz --region us-east-1
 
-echo "rds | remigrating | ts-$TS_ENV"
+echo "rds | remigrating | ts-dev"
 source venv/bin/activate
 alembic downgrade base && alembic upgrade head

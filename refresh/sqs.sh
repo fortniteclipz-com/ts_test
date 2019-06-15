@@ -16,6 +16,6 @@ qs=(
 )
 for q in ${qs[@]}; do
     echo "sqs | purging | ${q}"
-    qurl="https://sqs.us-east-2.amazonaws.com/589344262905/${q}"
-    aws sqs purge-queue --queue-url "${qurl}"
+    qurl="https://sqs.us-east-1.amazonaws.com/923755341410/${q}"
+    aws sqs purge-queue --queue-url "${qurl}" --profile sls-fortniteclipz --region us-east-1
 done
