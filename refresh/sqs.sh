@@ -1,21 +1,25 @@
 # purge sqs
-echo "sqs | start | ts-media-dev"
+ts_env=${1:-'dev'}
+region=$([ $ts_env == "prod" ] && echo "us-west-2" || echo "us-east-1")
+echo "sqs | start | ts_env=$ts_env | $region"
+
 qs=(
-    "ts-clip-dead-dev"
-    "ts-clip-dev"
-    "ts-montage-dead-dev"
-    "ts-montage-dev"
-    "ts-stream--analyze-dead-dev"
-    "ts-stream--analyze-dev"
-    "ts-stream--initialize-dead-dev"
-    "ts-stream--initialize-dev"
-    "ts-stream-segment--analyze-dead-dev"
-    "ts-stream-segment--analyze-dev"
-    "ts-stream-segment--download-dead-dev"
-    "ts-stream-segment--download-dev"
+    "ts-clip-dead"
+    "ts-clip"
+    "ts-montage-dead"
+    "ts-montage"
+    "ts-stream--analyze-dead"
+    "ts-stream--analyze"
+    "ts-stream--initialize-dead"
+    "ts-stream--initialize"
+    "ts-stream-segment--analyze-dead"
+    "ts-stream-segment--analyze"
+    "ts-stream-segment--download-dead"
+    "ts-stream-segment--download"
 )
 for q in ${qs[@]}; do
-    echo "sqs | purging | ${q}"
-    qurl="https://sqs.us-east-1.amazonaws.com/923755341410/${q}"
-    aws sqs purge-queue --queue-url "${qurl}" --profile sls-fortniteclipz --region us-east-1
+    echo "sqs | purging | q=$q-$ts_env"
+    aws sqs purge-queue --queue-url "https://sqs.$region.amazonaws.com/923755341410/$q-$ts_env" --profile sls-fortniteclipz --region $region
 done
+
+echo "sqs | done | ts_env=$ts_env | $region"
