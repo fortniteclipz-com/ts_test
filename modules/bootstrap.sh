@@ -1,17 +1,16 @@
+# bootstrap
 twitch_stitch_root="${PWD%/*/*}"
 
 function bootstrap() {
     module_short="$(basename "${1%/*/*}")/${1##*/}"
-    echo "start $module_short"
-
+    echo "bootstrap | start | module=$module_short"
     cd $1
     rm -rf ./venv
     rm -rf ./__pycache__
-    /usr/local/Cellar/python/3.6.5_1/bin/python3 -m venv ./venv
+    python3 -m venv ./venv
     source venv/bin/activate
-    pip3 install pip==10.0.1
+    python3 -m pip install pip==18.1
     pip3 install --process-dependency-links -r requirements.txt
-
     cd $twitch_stitch_root/ts_shared
     pip3 install --process-dependency-links -e ./ts_aws
     pip3 install --process-dependency-links -e ./ts_config
@@ -20,38 +19,33 @@ function bootstrap() {
     pip3 install --process-dependency-links -e ./ts_libs
     pip3 install --process-dependency-links -e ./ts_logger
     pip3 install --process-dependency-links -e ./ts_model
-
-    echo "done $module_short"
-    echo "\n"
+    deactivate
+    echo "bootstrap | done | module=$module_short"
 }
 
 cd $twitch_stitch_root
 if [ -z $1 ]; then
-
     find . -type d -path "*/modules/*" -name "venv" -maxdepth 4 -exec rm -rf '{}' +
     find . -type d -path "*/modules/*" -name "__pycache__" -maxdepth 4 -exec rm -rf '{}' +
-    find $(pwd) -type f -path "*/modules/*" -not -path "*.serverless*" -iname "requirements.txt" -maxdepth 4 -print0 | while IFS= read -r -d $'\0' file; do
-        module_dir=$(dirname $file)
+    echo "bootstrap | found all | ↓"
+    find $(pwd) -type d -path "*/modules/*" -maxdepth 3
+    echo "bootstrap | found all | ↑"
+    find $(pwd) -type d -path "*/modules/*" -maxdepth 3 -print0 | while IFS= read -r -d $'\0' module_dir; do
         bootstrap $module_dir
     done
-
 else
-
-    repo="$(cut -d'/' -f1 <<<"$1")"
-    module="$(cut -d'/' -f2 <<<"$1")"
+    repo=$1
+    module=$2
     found=false
-
     while IFS= read -d " " module_dir; do
         if [[ $module_dir == *$repo* ]] && [[ $module_dir == *$module* ]]; then
             found=true
             bootstrap $module_dir
         fi
-    done <<< $(find . -type d -path "*/modules/*" -maxdepth 3)
-
+    done <<< $(find $(pwd) -type d -path "*/modules/*" -maxdepth 3)
     if [ $found = false ]; then
-        echo "error: $repo $module is not a valid module dir [$repo/$module]"
+        echo "bootstrap | error | $repo $module is not valid"
     fi
-
 fi
 
 
